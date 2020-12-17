@@ -86,7 +86,7 @@ jobs:
 
   build-toolchains:
     name: |
-      host: ${{ matrix.platform }}--${{ matrix.toolchain }}
+      host: ${{ matrix.platform_slug }}--${{ matrix.toolchain }}
 
     runs-on: ubuntu-latest
 
