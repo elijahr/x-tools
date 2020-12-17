@@ -25,4 +25,5 @@ docker build \
   .
 cd -
 
+docker tag "$IMAGE" "ghcr.io/$IMAGE"
 docker push "ghcr.io/$IMAGE"
