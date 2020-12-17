@@ -3,7 +3,7 @@
 set -uxe
 
 SCRIPT_DIR="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-source "${SCRIPT_DIR}/functions.sh"
+. "${SCRIPT_DIR}/functions.sh"
 
 case "$(normalize_to_docker_platform)" in
   linux/386)
