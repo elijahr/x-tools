@@ -155,7 +155,7 @@ jobs:
         ./build-and-package-toolchain.sh \
           "alpine3.12" \
           "$(basename ${{ github.event.ref }})" \
-          "${{ matrix.platform }}"
+          "${{ matrix.platform }}" \
           "${{ matrix.toolchain }}"
 
     - name: Upload Release Asset
