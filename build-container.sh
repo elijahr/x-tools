@@ -16,14 +16,14 @@ docker pull \
   --platform "$PLATFORM" \
   || true
 
-cd "${SCRIPT_DIR}"
+mkdir -p "${SCRIPT_DIR}/sources"
+
 docker build \
   --file "${SCRIPT_DIR}/${OS}.dockerfile" \
   --build-arg PLATFORM="$PLATFORM" \
   --platform "$PLATFORM" \
   --tag "$IMAGE" \
-  .
-cd -
+  "${SCRIPT_DIR}"
 
 docker tag "$IMAGE" "ghcr.io/$IMAGE"
 docker push "ghcr.io/$IMAGE"

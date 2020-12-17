@@ -23,17 +23,17 @@ jobs:
           - "linux/s390x"
 
     steps:
-    - name: Restore cached sources
-      uses: actions/cache@v2
-      with:
-        path: sources
-        key: sources-${{ matrix.platform }}
-
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
         fetch-depth: 1
         submodules: recursive
+
+    - name: Restore cached sources
+      uses: actions/cache@v2
+      with:
+        path: sources
+        key: sources-${{ matrix.platform }}
 
     - name: Configure QEMU
       run: |
@@ -119,17 +119,17 @@ jobs:
             platform_slug: "linux-s390x"
 
     steps:
-    - name: Restore cached sources
-      uses: actions/cache@v2
-      with:
-        path: sources
-        key: sources-${{ matrix.platform }}
-
     - name: Checkout repo
       uses: actions/checkout@v2
       with:
         fetch-depth: 1
         submodules: recursive
+
+    - name: Restore cached sources
+      uses: actions/cache@v2
+      with:
+        path: sources
+        key: sources-${{ matrix.platform }}
 
     - name: Configure QEMU
       run: |
