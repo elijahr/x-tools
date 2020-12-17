@@ -14,12 +14,12 @@ XTOOLS_DIR="${6:-${SCRIPT_DIR}/x-tools}"
 SOURCES_DIR="${7:-${SCRIPT_DIR}/sources}"
 CONFIGS_DIR="${8:-${SCRIPT_DIR}/configs/${OS}}"
 
-IMAGE="ghcr.io/$(generate_image_name \"$OS\" \"$REF\" \"$PLATFORM\")"
+IMAGE="ghcr.io/$(generate_image_name "$OS" "$REF" "$PLATFORM")"
 
 mkdir -p "$XTOOLS_DIR"
 mkdir -p "$SOURCES_DIR"
 
-docker run -it \
+docker run -t \
   --platform "$PLATFORM" \
   --mount "type=bind,src=${XTOOLS_DIR},dst=/root/x-tools" \
   --mount "type=bind,src=${SOURCES_DIR},dst=/root/src" \

@@ -2,7 +2,7 @@
 
 set -uxe
 
-TOOlCHAIN=$1
+TOOLCHAIN=$1
 
 cd "/root/configs/${TOOLCHAIN}"
 
