@@ -31,9 +31,9 @@ normalize_to_docker_platform () {
     aarch64 | arm64 | armv8b | armv8l)
       echo linux/arm64/v8 ;;
     arm*)
-      # Detect arm/ version using __ARM_PLATFORM definition
-      ARM_PLATFORM=$(gcc -dM -E - < /dev/null | grep "#define __ARM_PLATFORM " | sed 's/#define __ARM_PLATFORM //')
-      echo linux/arm/v$ARM_PLATFORM
+      # Detect arm/ version using __ARM_ARCH definition
+      ARM_ARCH=$(gcc -dM -E - < /dev/null | grep "#define __ARM_ARCH " | sed 's/#define __ARM_ARCH //')
+      echo linux/arm/v$ARM_ARCH
       ;;
     mips64)
       echo mips64le ;;
