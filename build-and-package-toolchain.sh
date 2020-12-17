@@ -35,5 +35,11 @@ docker run -it \
 rm "${XTOOLS_DIR}/${TOOLCHAIN}/build.log.bz2"
 
 # Package
-cd "${XTOOLS_DIR}"
-tar -cJf "${TOOLCHAIN}.tar.xz" "${TOOLCHAIN}"
+TARBALL="${XTOOLS_DIR}/${TOOLCHAIN}.tar.xz"
+cd "$XTOOLS_DIR"
+tar -cJf "$TARBALL" "$TOOLCHAIN"
+
+ARCH=$(docker_platform_to_docker_arch "$PLATFORM")
+
+echo "::set-output name=asset_path::${TARBAlL}"
+echo "::set-output name=asset_name::${OS}--${ARCH}--${TARBALL}"

@@ -33,7 +33,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: sources
-        key: sources-${{ matrix.platform }}
+        key: sources
 
     - name: Configure QEMU
       run: |
@@ -86,7 +86,7 @@ jobs:
 
   build-toolchains:
     name: |
-      host: ${{ matrix.platform_slug }}--${{ matrix.toolchain }}
+      host: ${{ matrix.platform }}--${{ matrix.toolchain }}
 
     runs-on: ubuntu-latest
 
@@ -94,6 +94,14 @@ jobs:
 
     strategy:
       matrix:
+        platform:
+          - "linux/amd64"
+          - "linux/386"
+          - "linux/arm/v6"
+          - "linux/arm/v7"
+          - "linux/arm64/v8"
+          - "linux/ppc64le"
+          - "linux/s390x"
         toolchain:
           - "aarch64-alpine3.12-linux-musl"
           - "armv6-alpine3.12-linux-musleabi"
@@ -102,21 +110,6 @@ jobs:
           - "powerpc64le-alpine3.12-linux-musl"
           - "s390x-alpine3.12-linux-musl"
           - "x86_64-alpine3.12-linux-musl"
-        include:
-          - platform: "linux/amd64"
-            platform_slug": "linux-amd64"
-          - platform: "linux/386"
-            platform_slug: "linux-386"
-          - platform: "linux/arm/v6"
-            platform_slug: "linux-armv6"
-          - platform: "linux/arm/v7"
-            platform_slug: "linux-armv7"
-          - platform: "linux/arm64/v8"
-            platform_slug: "linux-arm64v8"
-          - platform: "linux/ppc64le"
-            platform_slug: "linux-ppc64le"
-          - platform: "linux/s390x"
-            platform_slug: "linux-s390x"
 
     steps:
     - name: Checkout repo
@@ -129,7 +122,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: sources
-        key: sources-${{ matrix.platform }}
+        key: sources
 
     - name: Configure QEMU
       run: |
@@ -151,6 +144,7 @@ jobs:
         password: ${{ secrets.GHCR_PERSONAL_ACCESS_TOKEN }}
 
     - name: Build toolchain
+      id: build-toolchain
       run: |
         ./build-and-package-toolchain.sh \
           "alpine3.12" \
@@ -158,15 +152,15 @@ jobs:
           "${{ matrix.platform }}" \
           "${{ matrix.toolchain }}"
 
-    - name: Upload Release Asset
+    - name: Attach toolchain tarball to release
       id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ needs.create-release.outputs.upload_url }}
-        asset_path: ./x-tools/${{ matrix.toolchain }}.tar.xz
-        asset_name: "${{ matrix.platform_slug }}--${{ matrix.toolchain }}.tar.xz"
+        upload_url: "${{ needs.create-release.outputs.upload_url }}"
+        asset_path: "${{ steps.build-toolchain.outputs.asset_path }}"
+        asset_name: "${{ steps.build-toolchain.outputs.asset_name }}"
         asset_content_type: application/x-xz
 
   publish-release:

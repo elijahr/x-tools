@@ -1,5 +1,5 @@
 
-normalize_to_docker_platform () {
+detect_docker_platform () {
   # Function to detect the current running container's platform and
   # normalize it to one of the following:
   # - linux/amd64
@@ -13,9 +13,9 @@ normalize_to_docker_platform () {
   # - linux/s390x
   # - linux/mips64le
 
-  ACTUAL_PLATFORM=$(uname -m)
+  arch="$(uname -m)"
 
-  case $ACTUAL_PLATFORM in
+  case $arch in
     x86_64 | x64)
       # Detect 386 container on amd64 using __amd64 definition
       IS_AMD64=$(gcc -dM -E - < /dev/null | grep "#define __amd64 " | sed 's/#define __amd64 //')
@@ -38,9 +38,9 @@ normalize_to_docker_platform () {
     mips64)
       echo mips64le ;;
     ppc | ppc64le | s390x)
-      echo linux/$ACTUAL_PLATFORM ;;
+      echo linux/$arch ;;
     *)
-      echo "Unhandled platform $ACTUAL_PLATFORM" 1>&2
+      echo "Unhandled architecture $arch" 1>&2
       exit 1
       ;;
   esac
