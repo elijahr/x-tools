@@ -22,6 +22,7 @@ docker build \
   --file "${SCRIPT_DIR}/${OS}.dockerfile" \
   --build-arg PLATFORM="$PLATFORM" \
   --platform "$PLATFORM" \
+  --cache-from "ghcr.io/$IMAGE" \
   --tag "$IMAGE" \
   "${SCRIPT_DIR}"
 
