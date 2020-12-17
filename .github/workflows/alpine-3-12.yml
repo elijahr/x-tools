@@ -81,6 +81,7 @@ jobs:
         key: sources
 
     - name: Configure QEMU
+      if: ${{ matrix.platform != "linux/amd64" && matrix.platform != "linux/386" }}
       run: |
         sudo apt-get update -q -y
         sudo apt-get -qq install -y qemu qemu-user-static
@@ -149,6 +150,7 @@ jobs:
         key: sources
 
     - name: Configure QEMU
+      if: ${{ matrix.platform != "linux/amd64" && matrix.platform != "linux/386" }}
       run: |
         sudo apt-get update -q -y
         sudo apt-get -qq install -y qemu qemu-user-static
