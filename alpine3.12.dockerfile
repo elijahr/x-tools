@@ -59,9 +59,9 @@ RUN \
   cd .. && \
   rm -rf crosstool-ng
 
-COPY configs/alpine3.12 /root/configs/
-COPY scripts /scripts/
-COPY sources /root/src/
+COPY /configs/alpine3.12 /root/configs/
+COPY /scripts /scripts/
+COPY /sources /root/src/
 
 RUN /scripts/test-platform.sh $PLATFORM
 ENTRYPOINT ["/scripts/entrypoint.sh"]
