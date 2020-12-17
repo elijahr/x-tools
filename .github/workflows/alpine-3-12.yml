@@ -129,7 +129,7 @@ jobs:
         toolchain:
           - "aarch64-alpine3.12-linux-musl"
           - "armv6-alpine3.12-linux-musleabi"
-          - "armv7-alpine3.12-linux-musleabi"
+          - "armv7-alpine3.12-linux-musleabihf"
           - "i686-alpine3.12-linux-musl"
           - "powerpc64le-alpine3.12-linux-musl"
           - "s390x-alpine3.12-linux-musl"
