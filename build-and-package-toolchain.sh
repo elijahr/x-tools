@@ -8,17 +8,12 @@ SCRIPT_DIR="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 OS=$1
 REF=$2
 PLATFORM=$3
-TOOlCHAIN=$4
+TOOLCHAIN=$4
 XTOOLS_DIR="${5:-${SCRIPT_DIR}/x-tools}"
 SOURCES_DIR="${6:-${SCRIPT_DIR}/sources}"
 CONFIGS_DIR="${7:-${SCRIPT_DIR}/configs/${OS}}"
 
-IMAGE=$(generate_image_name "$OS" "$REF" "$PLATFORM")
-
-docker pull \
-  "ghcr.io/$IMAGE" \
-  --platform "$PLATFORM" \
-  || true
+IMAGE="ghcr.io/$(generate_image_name \"$OS\" \"$REF\" \"$PLATFORM\")"
 
 mkdir -p "$XTOOLS_DIR"
 mkdir -p "$SOURCES_DIR"
