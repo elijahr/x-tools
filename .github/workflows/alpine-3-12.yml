@@ -7,10 +7,55 @@ on:
     tags: ['*']
 
 jobs:
-  build-container-image:
+
+  create-release:
+    name: Create release
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      id: ${{ steps.create-release.outputs.id }}
+      upload_url: ${{ steps.create-release.outputs.upload_url }}
+      release_name: ${{ steps.generate-release-name.outputs.release_name }}
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+        submodules: recursive
+
+    - name: Generate release name
+      id: generate-release-name
+      run: |
+        case "${{ github.ref }}" in
+          refs/tags/*)
+            release_name="$(echo ${{ github.ref }} | sed 's/.*\/\(.*\)$/\1/')"
+            ;;
+          *)
+            release_name="$(echo ${{ github.ref }} | sed 's/.*\/\(.*\)$/\1/')-$(git rev-parse --short HEAD)"
+            ;;
+        esac
+        echo "::set-output name=release_name::${release_name}"
+
+    - name: Create Release
+      id: create-release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ steps.generate-release-name.outputs.release_name }}
+        draft: true
+        prerelease: ${{ !startsWith(github.event.ref, 'refs/tags/') }}
+
+  build-containers:
     name: |
       ${{ matrix.platform }}
     runs-on: ubuntu-latest
+
+    needs: create-release
+
     strategy:
       matrix:
         platform:
@@ -61,36 +106,15 @@ jobs:
           "$(basename ${{ github.event.ref }})" \
           "${{ matrix.platform }}"
 
-  create-release:
-    name: Create release
-
-    runs-on: ubuntu-latest
-
-    needs: build-container-image
-
-    outputs:
-      id: ${{ steps.create-release.outputs.id }}
-      upload_url: ${{ steps.create-release.outputs.upload_url }}
-
-    steps:
-    - name: Create Release
-      id: create-release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: true
-        prerelease: ${{ !startsWith(github.event.ref, 'refs/tags/') }}
-
   build-toolchains:
     name: |
       ${{ matrix.platform }}: ${{ matrix.toolchain }}
 
     runs-on: ubuntu-latest
 
-    needs: create-release
+    needs:
+      - create-release
+      - build-containers
 
     strategy:
       matrix:
@@ -149,6 +173,7 @@ jobs:
         ./build-and-package-toolchain.sh \
           "alpine3.12" \
           "$(basename ${{ github.event.ref }})" \
+          "${{ needs.create-release.outputs.release_name }}" \
           "${{ matrix.platform }}" \
           "${{ matrix.toolchain }}"
 
@@ -166,7 +191,10 @@ jobs:
   publish-release:
     if: ${{ startsWith(github.event.ref, 'refs/tags/') }}
     runs-on: ubuntu-latest
-    needs: build-toolchains
+    needs:
+      - create-release
+      - build-containers
+      - build-toolchains
     steps:
     - uses: eregon/publish-release@v1
       env:
