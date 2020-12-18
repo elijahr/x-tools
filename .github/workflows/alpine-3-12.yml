@@ -118,6 +118,7 @@ jobs:
       - build-containers
 
     strategy:
+      fail-fast: false
       matrix:
         platform:
           - "linux/amd64"

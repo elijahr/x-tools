@@ -27,8 +27,8 @@ docker run -t \
   "$IMAGE" \
   /scripts/build-toolchain.sh "$TOOLCHAIN"
 
-# Remove log, its large
-rm "${XTOOLS_DIR}/${TOOLCHAIN}/build.log"*
+# Remove log if it exists, its large
+rm -f "${XTOOLS_DIR}/${TOOLCHAIN}/build.log"*
 
 # Package
 TARBALL="${XTOOLS_DIR}/${TOOLCHAIN}.tar.xz"
