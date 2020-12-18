@@ -37,5 +37,5 @@ tar -cJf "$TARBALL" "$TOOLCHAIN"
 
 ARCH=$(docker_platform_to_docker_arch "$PLATFORM")
 
-echo "::set-output name=asset_path::${TARBAlL}"
+echo "::set-output name=asset_path::${TARBALL}"
 echo "::set-output name=asset_name::x-tools-${RELEASE_NAME}--${OS}-${ARCH}--${TOOLCHAIN}.tar.xz"
