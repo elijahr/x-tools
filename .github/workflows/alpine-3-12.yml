@@ -61,11 +61,14 @@ jobs:
         platform:
           - "linux/amd64"
           - "linux/386"
-          - "linux/arm/v6"
-          - "linux/arm/v7"
-          - "linux/arm64/v8"
-          - "linux/ppc64le"
-          - "linux/s390x"
+          # build-toolchains times out in emulated containers on Github Actions,
+          # so don't bother building. For now we only support amd64 and 386
+          # hosts.
+          # - "linux/arm/v6"
+          # - "linux/arm/v7"
+          # - "linux/arm64/v8"
+          # - "linux/ppc64le"
+          # - "linux/s390x"
 
     steps:
     - name: Checkout repo
@@ -123,11 +126,14 @@ jobs:
         platform:
           - "linux/amd64"
           - "linux/386"
-          - "linux/arm/v6"
-          - "linux/arm/v7"
-          - "linux/arm64/v8"
-          - "linux/ppc64le"
-          - "linux/s390x"
+          # build-toolchains times out in emulated containers on Github Actions,
+          # so don't bother building. For now we only support amd64 and 386
+          # hosts.
+          # - "linux/arm/v6"
+          # - "linux/arm/v7"
+          # - "linux/arm64/v8"
+          # - "linux/ppc64le"
+          # - "linux/s390x"
         toolchain:
           - "aarch64-alpine3.12-linux-musl"
           - "armv6-alpine3.12-linux-musleabi"
