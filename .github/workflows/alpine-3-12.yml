@@ -30,7 +30,7 @@ jobs:
       run: |
         case "${{ github.ref }}" in
           refs/tags/*)
-            release_name="$(echo ${{ github.ref }} | sed 's/.*\/\(.*\)$/\1/')-$(date '+%Y%m%d')"
+            release_name="$(echo ${{ github.ref }} | sed 's/.*\/\(.*\)$/\1/')"
             ;;
           *)
             release_name="$(echo ${{ github.ref }} | sed 's/.*\/\(.*\)$/\1/')-$(git rev-parse --short HEAD)"
