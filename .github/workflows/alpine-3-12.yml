@@ -63,7 +63,7 @@ jobs:
       matrix:
         platform:
           - "linux/amd64"
-          - "linux/386"
+          # - "linux/386"
           # build-toolchains times-out in emulated containers on Github Actions,
           # so don't bother building. For now we only support amd64 and 386
           # hosts.
