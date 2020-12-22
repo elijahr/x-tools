@@ -59,11 +59,3 @@ RUN \
 
 COPY configs/alpine3.12 /root/configs/
 COPY sources /root/src/
-
-ARG ENTRY_1
-ENV ENTRY_1=$ENTRY_1
-
-ARG ENTRY_2
-ENV ENTRY_2=$ENTRY_2
-
-ENTRYPOINT [$ENTRY_1, $ENTRY_2]
