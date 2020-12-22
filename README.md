@@ -6,7 +6,7 @@ The projects main goal is to provide binary cross crompiler toolchains for use i
 
 x-tools uses Docker and [crosstool-ng](https://crosstool-ng.github.io/).
 
-Currently, toolchains are built for Alpine Linux 3.12 hosting and targetting all of the following architectures:
+Currently, toolchains are built for Alpine Linux 3.12 hosting and targeting all of the following architectures:
 
 * amd64
 * 386
@@ -14,4 +14,3 @@ Currently, toolchains are built for Alpine Linux 3.12 hosting and targetting all
 * arm/v7
 * arm64/v8
 * ppc64le
-* s390x

@@ -1,8 +1,5 @@
 FROM alpine:3.12
 
-ARG PLATFORM
-ENV PLATFORM=$PLATFORM
-
 ARG CROSSTOOL_NG_VERSION=54b8b91c1095e8def84699967a6c6389f5a224cb
 
 WORKDIR /root
@@ -44,6 +41,7 @@ RUN \
     wget \
     xz
 
+# Build crosstool-ng
 RUN \
   git clone \
     https://github.com/crosstool-ng/crosstool-ng.git \
@@ -60,8 +58,12 @@ RUN \
   rm -rf crosstool-ng
 
 COPY configs/alpine3.12 /root/configs/
-COPY scripts /scripts/
 COPY sources /root/src/
 
-RUN /scripts/test-platform.sh $PLATFORM
-ENTRYPOINT ["/scripts/entrypoint.sh"]
+ARG ENTRY_1
+ENV ENTRY_1=$ENTRY_1
+
+ARG ENTRY_2
+ENV ENTRY_2=$ENTRY_2
+
+ENTRYPOINT [$ENTRY_1, $ENTRY_2]
