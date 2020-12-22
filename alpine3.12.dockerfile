@@ -58,4 +58,5 @@ RUN \
   rm -rf crosstool-ng
 
 COPY configs/alpine3.12 /root/configs/
+COPY scripts /scripts/
 COPY sources /root/src/
