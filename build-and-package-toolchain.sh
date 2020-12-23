@@ -22,8 +22,9 @@ mkdir -p "$SOURCES_DIR"
 docker run -t \
   --platform "$PLATFORM" \
   --mount "type=bind,src=${GCC_CROSS_DIR},dst=/usr/lib/gcc-cross" \
-  --mount "type=bind,src=${SOURCES_DIR},dst=/root/src" \
-  --mount "type=bind,src=${CONFIGS_DIR},dst=/root/configs" \
+  --mount "type=bind,src=${SOURCES_DIR},dst=/home/ct-ng/src" \
+  --mount "type=bind,src=${CONFIGS_DIR},dst=/home/ct-ng/configs" \
+  --mount "type=bind,src=${SCRIPT_DIR}/scripts,dst=/scripts" \
   "$IMAGE" \
   /scripts/build-toolchain.sh "$TOOLCHAIN"
 

@@ -2,8 +2,6 @@ FROM alpine:3.12
 
 ARG CROSSTOOL_NG_VERSION=54b8b91c1095e8def84699967a6c6389f5a224cb
 
-WORKDIR /root
-
 # Install deps, build crosstool-ng
 RUN \
   apk add --no-cache \
@@ -36,6 +34,7 @@ RUN \
     python2 \
     python2-dev \
     rsync \
+    sudo \
     texinfo \
     util-linux \
     wget \
@@ -57,6 +56,12 @@ RUN \
   cd .. && \
   rm -rf crosstool-ng
 
-COPY configs/alpine3.12 /root/configs/
+COPY configs/archlinux /home/ct-ng/configs/
 COPY scripts /scripts/
-COPY sources /root/src/
+COPY sources /home/ct-ng/src/
+
+RUN adduser -D -g '' ct-ng
+WORKDIR /home/ct-ng
+
+# Build crosstool-ng
+RUN sh /scripts/install-ct-ng.sh
