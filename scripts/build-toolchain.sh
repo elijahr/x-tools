@@ -13,5 +13,4 @@ ln -s \
   "/usr/lib/gcc-cross/${TOOLCHAIN}/${TOOLCHAIN}/bin/strip" \
   /usr/local/sbin/strip
 
-chown -R ct-ng:ct-ng /usr/lib/gcc-cross
 sudo -u ct-ng ct-ng build

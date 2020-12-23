@@ -42,3 +42,6 @@ WORKDIR /home/ct-ng
 
 # Build crosstool-ng
 RUN sh /scripts/install-ct-ng.sh
+RUN \
+  chown -R ct-ng:ct-ng /usr/lib/gcc-cross && \
+  chown -R ct-ng:ct-ng /home/ct-ng
