@@ -3,7 +3,7 @@ FROM archlinux:base-devel
 # non-amd64
 # FROM lopsided/archlinux:devel
 
-ARG CROSSTOOL_NG_VERSION=54b8b91c1095e8def84699967a6c6389f5a224cb
+ARG CROSSTOOL_NG_VERSION=dtc-1.6.0
 
 # Install deps
 RUN \
