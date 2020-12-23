@@ -21,7 +21,7 @@ mkdir -p "$SOURCES_DIR"
 
 case $(uname) in
   Darwin) CONFIGS_MOUNT="" ;;
-  *) CONFIGS_MOUNT="--mount \"type=bind,src=${CONFIGS_DIR},dst=/home/ct-ng/configs\"" ;;
+  *) CONFIGS_MOUNT="--mount type=bind,src=${CONFIGS_DIR},dst=/home/ct-ng/configs" ;;
 esac
 
 docker run -t \
