@@ -4,10 +4,6 @@ set -uxe
 
 TOOLCHAIN=$1
 
-find /home/ct-ng
-
-cd "/home/ct-ng/configs/${TOOLCHAIN}"
-
 # Workaround for incorrect strip being used during ncurses build
 mkdir -p /usr/local/sbin
 rm -f /usr/local/sbin/strip
@@ -16,7 +12,12 @@ ln -s \
   /usr/local/sbin/strip
 
 mkdir -p /usr/lib/gcc-cross
+
 chown -R ct-ng:ct-ng /usr/lib/gcc-cross
-ls -al /usr/lib/gcc-cross
-ls -al /usr/lib/gcc-cross/* || true
+chown -R ct-ng:ct-ng /home/ct-ng
+
+find /home/ct-ng -type d -exec sh -c 'echo; echo {}; ls -al {}'  \;
+find /usr/lib/gcc-cross -type d -exec sh -c 'echo; echo {}; ls -al {}'  \;
+
+cd "/home/ct-ng/configs/${TOOLCHAIN}"
 sudo -u ct-ng ct-ng build
