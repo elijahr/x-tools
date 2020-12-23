@@ -13,4 +13,4 @@ ln -s \
   "/usr/lib/gcc-cross/${TOOLCHAIN}/${TOOLCHAIN}/bin/strip" \
   /usr/local/sbin/strip
 
-sudo -u ct-ng ct-ng build
+sudo -u ct-ng ct-ng build || (status=$?; cat build.log; exit $status)

@@ -19,11 +19,16 @@ IMAGE="ghcr.io/$(generate_image_name "$OS" "$REF" "$PLATFORM")"
 mkdir -p "$GCC_CROSS_DIR"
 mkdir -p "$SOURCES_DIR"
 
+case $(uname) in
+  Darwin) CONFIGS_MOUNT="" ;;
+  *) CONFIGS_MOUNT="--mount \"type=bind,src=${CONFIGS_DIR},dst=/home/ct-ng/configs\"" ;;
+esac
+
 docker run -t \
   --platform "$PLATFORM" \
   --mount "type=bind,src=${GCC_CROSS_DIR},dst=/usr/lib/gcc-cross" \
   --mount "type=bind,src=${SOURCES_DIR},dst=/home/ct-ng/src" \
-  --mount "type=bind,src=${CONFIGS_DIR},dst=/home/ct-ng/configs" \
+  ${CONFIGS_MOUNT} \
   --mount "type=bind,src=${SCRIPT_DIR}/scripts,dst=/scripts" \
   "$IMAGE" \
   /scripts/build-toolchain.sh "$TOOLCHAIN"
