@@ -4,6 +4,9 @@ set -uxe
 
 TOOLCHAIN=$1
 
+
+find /home/ct-ng
+
 cd "/home/ct-ng/configs/${TOOLCHAIN}"
 
 # Workaround for incorrect strip being used during ncurses build
