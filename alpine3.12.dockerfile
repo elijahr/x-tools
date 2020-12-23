@@ -56,7 +56,7 @@ RUN \
   cd .. && \
   rm -rf crosstool-ng
 
-COPY configs/archlinux /home/ct-ng/configs/
+COPY configs/alpine3.12 /home/ct-ng/configs/
 COPY scripts /scripts/
 COPY sources /home/ct-ng/src/
 
