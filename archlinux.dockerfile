@@ -1,8 +1,11 @@
-FROM lopsided/archlinux:devel
+FROM archlinux:base-devel
+
+# non-amd64
+# FROM lopsided/archlinux:devel
 
 ARG CROSSTOOL_NG_VERSION=54b8b91c1095e8def84699967a6c6389f5a224cb
 
-# Install deps, build crosstool-ng
+# Install deps
 RUN \
   pacman -Syu --noconfirm \
     autoconf \
@@ -15,7 +18,6 @@ RUN \
     flex \
     gawk \
     gcc \
-    gcc-ada \
     gettext \
     git \
     gmp \
@@ -33,6 +35,11 @@ RUN \
     xz && \
   pacman -Sc --noconfirm || true;
 
+# amd64-only
+RUN \
+  pacman -Syu --noconfirm gcc-ada && \
+  pacman -Sc --noconfirm || true;
+
 RUN useradd -d /home/ct-ng -Ums /bin/sh ct-ng
 COPY configs/archlinux /home/ct-ng/configs/
 COPY scripts /scripts/
@@ -41,8 +48,5 @@ COPY sources /home/ct-ng/src/
 WORKDIR /home/ct-ng
 
 # Build crosstool-ng
-RUN sh /scripts/install-ct-ng.sh
-RUN \
-  mkdir -p /usr/lib/gcc-cross && \
-  chown -R ct-ng:ct-ng /usr/lib/gcc-cross && \
-  chown -R ct-ng:ct-ng /home/ct-ng
+RUN sh /scripts/install-ct-ng.sh $CROSSTOOL_NG_VERSION
+RUN chown -R ct-ng:ct-ng /home/ct-ng

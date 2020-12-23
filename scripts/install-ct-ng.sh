@@ -2,8 +2,10 @@
 
 set -uex
 
+CROSSTOOL_NG_VERSION=$1
+
 git clone \
-  https://github.com/crosstool-ng/crosstool-ng.git \
+  https://github.com/elijahr/crosstool-ng.git \
   --branch master \
   --single-branch \
   crosstool-ng
