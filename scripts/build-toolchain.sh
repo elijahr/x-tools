@@ -10,7 +10,7 @@ cd "/root/configs/${TOOLCHAIN}"
 mkdir -p /usr/local/sbin
 rm -f /usr/local/sbin/strip
 ln -s \
-  "/root/x-tools/${TOOLCHAIN}/${TOOLCHAIN}/bin/strip" \
+  "/usr/lib/gcc-cross/${TOOLCHAIN}/${TOOLCHAIN}/bin/strip" \
   /usr/local/sbin/strip
 
 ct-ng build

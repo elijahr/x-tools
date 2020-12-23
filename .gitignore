@@ -1,5 +1,5 @@
 .config.old
 .build
 build.log
-x-tools/
+gcc-cross/
 sources/
