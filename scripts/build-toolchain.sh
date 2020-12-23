@@ -4,7 +4,6 @@ set -uxe
 
 TOOLCHAIN=$1
 
-
 find /home/ct-ng
 
 cd "/home/ct-ng/configs/${TOOLCHAIN}"
@@ -16,4 +15,6 @@ ln -s \
   "/usr/lib/gcc-cross/${TOOLCHAIN}/${TOOLCHAIN}/bin/strip" \
   /usr/local/sbin/strip
 
+ls -al /usr/lib/gcc-cross
+ls -al /usr/lib/gcc-cross/*
 sudo -u ct-ng ct-ng build
