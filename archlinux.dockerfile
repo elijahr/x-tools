@@ -30,6 +30,7 @@ RUN \
     python2 \
     rsync \
     texinfo \
+    unzip \
     wget \
     xz && \
   pacman -Sc --noconfirm || true;
