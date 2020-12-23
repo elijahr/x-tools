@@ -33,11 +33,11 @@ RUN \
     xz && \
   pacman -Sc --noconfirm || true;
 
+RUN useradd -d /home/ct-ng -Ums /bin/sh ct-ng
 COPY configs/archlinux /home/ct-ng/configs/
 COPY scripts /scripts/
 COPY sources /home/ct-ng/src/
 
-RUN useradd -ms /bin/sh ct-ng
 WORKDIR /home/ct-ng
 
 # Build crosstool-ng
