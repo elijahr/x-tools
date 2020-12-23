@@ -120,12 +120,12 @@ jobs:
         platform:
           - "linux/amd64"
         toolchain:
-          - "armv5-archlinux-linux-gnueabi"
-          - "armv6-archlinux-linux-gnueabihf"
-          - "armv7-archlinux-linux-gnueabihf"
-          - "aarch64-archlinux-linux-gnu"
-          - "i686-archlinux-linux-gnu"
-          - "x86_64-archlinux-linux-gnu"
+          - "armv5tel-unknown-linux-gnueabi"
+          - "armv6l-unknown-linux-gnueabihf"
+          - "armv7l-unknown-linux-gnueabihf"
+          - "aarch64-unknown-linux-gnu"
+          - "i686-unknown-linux-gnu"
+          - "x86_64-pc-linux-gnu"
 
     steps:
     - name: Checkout repo
