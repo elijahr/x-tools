@@ -1,5 +1,5 @@
 
-name: alpine:3.12
+name: archlinux
 
 on:
   pull_request:
@@ -33,10 +33,10 @@ jobs:
       run: |
         case "${{ github.ref }}" in
           refs/tags/*)
-            release_name="alpine-3.12--$(echo ${{ github.ref }} | sed 's/.*\/\(.*\)$/\1/')"
+            release_name="archlinux--$(echo ${{ github.ref }} | sed 's/.*\/\(.*\)$/\1/')"
             ;;
           *)
-            release_name="alpine-3.12--$(echo ${{ github.ref }} | sed 's/.*\/\(.*\)$/\1/')-$(git rev-parse --short HEAD)"
+            release_name="archlinux--$(echo ${{ github.ref }} | sed 's/.*\/\(.*\)$/\1/')-$(git rev-parse --short HEAD)"
             ;;
         esac
         echo "::set-output name=release_name::${release_name}"
@@ -63,15 +63,6 @@ jobs:
       matrix:
         platform:
           - "linux/amd64"
-          # - "linux/386"
-          # build-toolchains times-out in emulated containers on Github Actions,
-          # so don't bother building. For now we only support amd64 and 386
-          # hosts.
-          # - "linux/arm/v6"
-          # - "linux/arm/v7"
-          # - "linux/arm64/v8"
-          # - "linux/ppc64le"
-          # - "linux/s390x"
 
     steps:
     - name: Checkout repo
@@ -109,7 +100,7 @@ jobs:
     - name: Build & push container image
       run: |
         ./build-container.sh \
-          "alpine3.12" \
+          "archlinux" \
           "$(basename ${{ github.event.ref }})" \
           "${{ matrix.platform }}"
 
@@ -128,22 +119,13 @@ jobs:
       matrix:
         platform:
           - "linux/amd64"
-          # - "linux/386"
-          # build-toolchains times out in emulated containers on Github Actions,
-          # so don't bother building. For now we only support amd64 hosts.
-          # - "linux/arm/v6"
-          # - "linux/arm/v7"
-          # - "linux/arm64/v8"
-          # - "linux/ppc64le"
-          # - "linux/s390x"
         toolchain:
-          - "armv6-alpine-linux-musleabihf"
-          - "aarch64-alpine-linux-musl"
-          # - "armv7-alpine-linux-musleabihf"
-          - "powerpc64le-alpine-linux-musl"
-          # - "s390x-alpine-linux-musl" # s390x fails
-          - "i686-alpine-linux-musl"
-          - "x86_64-alpine-linux-musl"
+          - "armv5-archlinux-linux-gnueabi"
+          - "armv6-archlinux-linux-gnueabihf"
+          - "armv7-archlinux-linux-gnueabihf"
+          - "aarch64-archlinux-linux-gnu"
+          - "i686-archlinux-linux-gnu"
+          - "x86_64-archlinux-linux-gnu"
 
     steps:
     - name: Checkout repo
@@ -182,7 +164,7 @@ jobs:
       id: build-toolchain
       run: |
         ./build-and-package-toolchain.sh \
-          "alpine3.12" \
+          "archlinux" \
           "$(basename ${{ github.event.ref }})" \
           "${{ needs.create-release.outputs.release_name }}" \
           "${{ matrix.platform }}" \
