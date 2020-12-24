@@ -169,11 +169,12 @@ jobs:
           "${{ matrix.platform }}" \
           "${{ matrix.toolchain }}"
 
-    - name: Start SSH session
-      uses: luchihoratiu/debug-via-ssh@main
-      with:
-        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-        SSH_PASS: ${{ secrets.NGROK_AUTH_TOKEN }}
+    # Uncomment to debug building via SSH
+    # - name: Start SSH session
+    #   uses: luchihoratiu/debug-via-ssh@main
+    #   with:
+    #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+    #     SSH_PASS: ${{ secrets.NGROK_AUTH_TOKEN }}
 
     - name: Attach toolchain tarball to release
       id: upload-release-asset
