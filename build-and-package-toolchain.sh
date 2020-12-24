@@ -35,6 +35,7 @@ sudo chown -R "$(whoami)" "$GCC_CROSS_DIR"
 # Package
 TARBALL="${TOOLCHAIN}.tar.xz"
 cd "$GCC_CROSS_DIR"
+find .
 tar -cJf "$TARBALL" "$TOOLCHAIN"
 cd -
 echo "::set-output name=asset_path::${GCC_CROSS_DIR}/${TARBALL}"
