@@ -124,7 +124,6 @@ jobs:
           - "armv6l-unknown-linux-gnueabihf"
           - "armv7l-unknown-linux-gnueabihf"
           - "aarch64-unknown-linux-gnu"
-          - "x86_64-build_pc-linux-gnu"
 
     steps:
     - name: Checkout repo

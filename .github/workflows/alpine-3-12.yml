@@ -128,22 +128,12 @@ jobs:
       matrix:
         platform:
           - "linux/amd64"
-          # - "linux/386"
-          # build-toolchains times out in emulated containers on Github Actions,
-          # so don't bother building. For now we only support amd64 hosts.
-          # - "linux/arm/v6"
-          # - "linux/arm/v7"
-          # - "linux/arm64/v8"
-          # - "linux/ppc64le"
-          # - "linux/s390x"
         toolchain:
-          - "armv6-alpine-linux-musleabihf"
-          - "aarch64-alpine-linux-musl"
-          # - "armv7-alpine-linux-musleabihf"
-          - "powerpc64le-alpine-linux-musl"
-          # - "s390x-alpine-linux-musl" # s390x fails
           - "i686-alpine-linux-musl"
-          - "x86_64-alpine-linux-musl"
+          - "armv6-alpine-linux-musleabihf"
+          - "armv7-alpine-linux-musleabihf"
+          - "aarch64-alpine-linux-musl"
+          - "powerpc64le-alpine-linux-musl"
 
     steps:
     - name: Checkout repo
