@@ -41,4 +41,4 @@ cd -
 echo "::set-output name=asset_path::${GCC_CROSS_DIR}/${TARBALL}"
 
 ARCH=$(docker_platform_to_docker_arch "$PLATFORM")
-echo "::set-output name=asset_name::x-tools-${RELEASE_NAME}--${OS}-${ARCH}--${TOOLCHAIN}.tar.xz"
+echo "::set-output name=asset_name::x-tools--host:${OS}-${ARCH}--target:${TOOLCHAIN}--${RELEASE_NAME}.tar.xz"
