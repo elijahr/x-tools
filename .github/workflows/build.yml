@@ -159,7 +159,7 @@ jobs:
         password: ${{ secrets.GHCR_PERSONAL_ACCESS_TOKEN }}
 
     - name: Build toolchain
-      id: build-toolchain
+      id: archlinux-build-toolchain
       run: |
         ./build-and-package-toolchain.sh \
           "archlinux" \
@@ -176,7 +176,6 @@ jobs:
     #     SSH_PASS: ${{ secrets.NGROK_AUTH_TOKEN }}
 
     - name: Attach toolchain tarball to release
-      id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -294,7 +293,7 @@ jobs:
         password: ${{ secrets.GHCR_PERSONAL_ACCESS_TOKEN }}
 
     - name: Build toolchain
-      id: build-toolchain
+      id: alpine-3-12-build-toolchain
       run: |
         ./build-and-package-toolchain.sh \
           "alpine3.12" \
@@ -311,7 +310,6 @@ jobs:
     #     SSH_PASS: ${{ secrets.NGROK_AUTH_TOKEN }}
 
     - name: Attach toolchain tarball to release
-      id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
