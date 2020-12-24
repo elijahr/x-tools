@@ -36,8 +36,8 @@ sudo chown -R "$(whoami)" "$GCC_CROSS_DIR"
 TARBALL="${TOOLCHAIN}.tar.xz"
 cd "$GCC_CROSS_DIR"
 tar -cJf "$TARBALL" "$TOOLCHAIN"
+cd -
+echo "::set-output name=asset_path::${GCC_CROSS_DIR}/${TARBALL}"
 
 ARCH=$(docker_platform_to_docker_arch "$PLATFORM")
-
-echo "::set-output name=asset_path::${TARBALL}"
 echo "::set-output name=asset_name::x-tools-${RELEASE_NAME}--${OS}-${ARCH}--${TOOLCHAIN}.tar.xz"

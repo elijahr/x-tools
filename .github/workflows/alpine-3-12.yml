@@ -41,13 +41,13 @@ jobs:
         esac
         echo "::set-output name=release_name::${release_name}"
 
-    - name: Create Release
+    - name: Create release
       id: create-release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
+        tag_name: ${{ steps.generate-release-name.outputs.release_name }}
         release_name: ${{ steps.generate-release-name.outputs.release_name }}
         draft: true
         prerelease: ${{ !startsWith(github.event.ref, 'refs/tags/') }}
@@ -63,15 +63,6 @@ jobs:
       matrix:
         platform:
           - "linux/amd64"
-          # - "linux/386"
-          # build-toolchains times-out in emulated containers on Github Actions,
-          # so don't bother building. For now we only support amd64 and 386
-          # hosts.
-          # - "linux/arm/v6"
-          # - "linux/arm/v7"
-          # - "linux/arm64/v8"
-          # - "linux/ppc64le"
-          # - "linux/s390x"
 
     steps:
     - name: Checkout repo
