@@ -29,14 +29,15 @@ docker run -t \
 # Remove log if it exists, its large
 rm -f "${GCC_CROSS_DIR}/${TOOLCHAIN}/build.log"*
 
+# Adjust permissions
+sudo chown -R "$(whoami)" "$GCC_CROSS_DIR"
 
+# Package
+TARBALL="${TOOLCHAIN}.tar.xz"
+cd "$GCC_CROSS_DIR"
+tar -cJf "$TARBALL" "$TOOLCHAIN"
 
-# # Package
-# TARBALL="${TOOLCHAIN}.tar.xz"
-# cd "$GCC_CROSS_DIR"
-# tar -cJf "$TARBALL" "$TOOLCHAIN"
+ARCH=$(docker_platform_to_docker_arch "$PLATFORM")
 
-# ARCH=$(docker_platform_to_docker_arch "${GCC_CROSS_DIR}/$PLATFORM")
-
-# echo "::set-output name=asset_path::${TARBALL}"
-# echo "::set-output name=asset_name::x-tools-${RELEASE_NAME}--${OS}-${ARCH}--${TOOLCHAIN}.tar.xz"
+echo "::set-output name=asset_path::${TARBALL}"
+echo "::set-output name=asset_name::x-tools-${RELEASE_NAME}--${OS}-${ARCH}--${TOOLCHAIN}.tar.xz"
