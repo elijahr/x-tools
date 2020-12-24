@@ -1,0 +1,33 @@
+name: Build
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  render:
+    name: Delete stale draft releases
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Delete stale draft releases
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        set -uexo pipefail
+
+        sudo apt-get update -q -y
+        sudo apt-get -qq install hub
+
+        delete_release () {
+          echo "Deleting release: $1 ($2)"
+          hub release delete $2
+        }
+
+        keep_release () {
+          echo "Keeping release: $1 ($2)"
+        }
+
+        now=$(date +%s)
+        one_day=86400
+        eval "$(hub release --include-drafts -f "([ \"\$(expr $now - %ct)\" -ge '$one_day' ] && [ '%S' = 'draft' ] && delete_release '%t' '%T' || keep_release '%t' '%T') ; ")"
