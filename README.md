@@ -15,8 +15,8 @@ x-tools uses Docker and [crosstool-ng](https://crosstool-ng.github.io/).
   * armv7-alpine-linux-musleabihf
   * aarch64-alpine-linux-musl
   * powerpc64le-alpine-linux-musl
-  * i686-alpine-linux-musl
-  
+  * i586-alpine-linux-musl
+
 ### Arch Linux
 
 * host: x86_64
