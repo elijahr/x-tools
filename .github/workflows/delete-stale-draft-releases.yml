@@ -1,7 +1,7 @@
-name: Build
+name: Delete stale draft releases
 on:
   schedule:
-    - cron: '1 0 * * *'
+    - cron: '0 1,13 * * *'
 
 jobs:
   render:
@@ -9,15 +9,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+        submodules: recursive
+
     - name: Delete stale draft releases
       shell: bash
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         set -uexo pipefail
-
+        sudo add-apt-repository ppa:cpick/hub
         sudo apt-get update -q -y
-        sudo apt-get -qq install hub
+        sudo apt-get -qq install -y hub
 
         delete_release () {
           echo "Deleting release: $1 ($2)"

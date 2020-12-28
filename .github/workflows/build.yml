@@ -3,11 +3,15 @@ name: Build
 
 on:
   pull_request:
-    paths-ignore: [ '**.md' ]
+    paths-ignore:
+      - '**.md'
+      - '.github/workflows/delete-stale-draft-releases.yml'
   push:
     branches: [ '*' ]
     tags: [ '*' ]
-    paths-ignore: [ '**.md' ]
+    paths-ignore:
+      - '**.md'
+      - '.github/workflows/delete-stale-draft-releases.yml'
 
 jobs:
 
