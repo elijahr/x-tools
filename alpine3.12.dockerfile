@@ -1,6 +1,6 @@
-FROM alpine:3.12
+FROM alpine:3.15
 
-ARG CROSSTOOL_NG_VERSION=dtc-1.6.0
+ARG CROSSTOOL_NG_VERSION=crosstool-ng-1.25.0
 
 # Install deps
 RUN \
@@ -40,7 +40,7 @@ RUN \
     wget \
     xz
 
-COPY configs/alpine3.12 /home/ct-ng/configs/
+COPY configs/alpine3.15 /home/ct-ng/configs/
 COPY scripts /scripts/
 COPY sources /home/ct-ng/src/
 

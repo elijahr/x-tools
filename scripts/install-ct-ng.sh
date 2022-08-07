@@ -5,7 +5,7 @@ set -uex
 CROSSTOOL_NG_VERSION=$1
 
 git clone \
-  https://github.com/elijahr/crosstool-ng.git \
+  https://github.com/crosstool-ng/crosstool-ng.git \
   --branch $CROSSTOOL_NG_VERSION \
   --single-branch \
   crosstool-ng

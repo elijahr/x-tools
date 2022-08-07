@@ -8,7 +8,7 @@ x-tools uses Docker and [crosstool-ng](https://crosstool-ng.github.io/).
 
 ## Toolchains
 
-### Alpine Linux 3.12
+### Alpine Linux 3.15
 
 * host: x86_64
   * armv6-alpine-linux-musleabihf
