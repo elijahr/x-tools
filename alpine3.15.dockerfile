@@ -1,6 +1,6 @@
 FROM alpine:3.15
 
-ARG CROSSTOOL_NG_VERSION=crosstool-ng-1.25.0
+ARG CROSSTOOL_NG_VERSION=dtc-1.6.1
 
 # Install deps
 RUN \
